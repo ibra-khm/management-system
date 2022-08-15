@@ -29,9 +29,62 @@ let employee04 = new Person (1004, 'Omar Ziad', 'Development', 'Senior')
 let employee05 = new Person (1005, 'Rana Saleh', 'Development', 'Junior')
 let employee06 = new Person (1006, 'Hadi Ahmad', 'Finance', 'Mid-Senior')
 
-function render(...info){
+function total(...info){
     for(let x = 0; x < 7; x++)
     console.log("Name: " + info[x].fullName + ". \n"  + "Salary: " + info[x].salary);
     return;
 }
-render(employee00, employee01, employee02, employee03, employee04, employee05 , employee06)
+total(employee00, employee01, employee02, employee03, employee04, employee05 , employee06)
+
+const table = document.createElement("table");
+const tHead = document.createElement("thead");
+const tBody = document.createElement("tbody")
+
+
+let employees = [employee00, employee01, employee02, employee03, employee04, employee05, employee06];
+
+let tblHeader = ["Employee ID", "full name", "Department", "Level", "Salary"];
+function tHeadGenerator() {
+    const row = document.createElement("tr");
+    
+    for (let x = 0; x < 5; x++) {
+        const cell = document.createElement("th");
+        const cellContent = document.createTextNode(
+            tblHeader[x]
+            );
+
+        cell.appendChild(cellContent);
+        row.appendChild(cell);
+    }
+        tHead.appendChild(row);
+        table.appendChild(tHead);
+}
+
+function tBodyGenerator() {
+    for (let x = 0; x <= 6; x++) {
+        const row = document.createElement("tr");
+        
+        for (let y = 0; y < 6; y++) {
+            const cell = document.createElement("td");
+            if (y == 4) {
+                continue
+            }
+            let employee = Object.values(employees[x]);
+            const cellContent = document.createTextNode(employee[y]);
+
+            cell.appendChild(cellContent);
+            row.appendChild(cell);            
+        }
+        
+        tBody.appendChild(row);
+    }
+   
+    table.appendChild(tBody);
+}
+
+function render() {
+    tHeadGenerator();
+    tBodyGenerator();
+    document.getElementById("main").appendChild(table);
+}
+render();
